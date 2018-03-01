@@ -1,0 +1,5 @@
+1.Copper ：查看并与CoAP资源交互
+https://addons.mozilla.org/en-US/firefox/addon/copper-270430/  需要火狐55版
+
+2.web CoAP测试工具 low
+http://coap.me/

@@ -1,0 +1,3 @@
+http://blog.csdn.net/braddoris/article/details/41576515
+http://blog.csdn.net/bxjie/article/details/18000281
+https://openconnectivity.org/developer/specifications/upnp-resources/upnp-developer-resources#sdks
