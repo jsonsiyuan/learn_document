@@ -1,0 +1,9 @@
+ICS即Internet连接共享(Internet Connection Sharing)的英文简称，
+是Windows系统针对家庭网络或小型的Intranet网络提供的一种Internet连接共享服务。
+它实际上相当于一种网络地址转换器，
+所谓网络地址转换器就是当数据包向前传递的过程中，
+可以转换数据包中的IP地址和TCP/UCP端口等地址信息。
+有了网络地址转换器，家庭网络或小型的办公网络中的电脑就可以使用私有地址，
+并且通过网络地址转换器将私有地址转换成ISP分配的单一的公用IP地址从而实现对
+Internet的连接。
+ICS方式也称之为Internet转换连接。
