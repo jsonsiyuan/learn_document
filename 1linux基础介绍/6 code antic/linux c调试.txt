@@ -1,0 +1,1 @@
+printf("%s:%d query add channel online state,times[%d] id[%d]!!\r\n",__FUNCTION__,__LINE__,bull_add_chanel_times,index);
