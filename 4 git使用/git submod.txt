@@ -1,0 +1,15 @@
+git submodule add ~/submd/repos/lib1.git libs/lib1 添加子库
+git submodule 查看状态 但是注意前面有一个减号：-，含义是该子模块还没有检出。
+git submodule init
+git submodule update
+
+git checkout master 对子库操作的时候，先要切换到 master
+子模块要push。应用的也要push
+
+
+我们前面刚刚讲了要在主项目更新submodule的内容首先要提交submdoule的内容，
+然后再更新主项目中引用的submodulecommit id；
+现在我们看到的不同就是因为刚刚更改了project1-b的submodule commit id；
+好的，我来学习一下怎么更新project1的公共类库。
+git submodule init。
+git submodule update
