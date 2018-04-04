@@ -1,0 +1,11 @@
+网络编程_常用的基本函数介绍——htonl、ntohl、htons、ntohs
+
+htonl函数:
+将主机的unsigned long值转换成网络字节顺序（32位）。用于IP地址。
+例如：
+htonl(INADDR_ANY);
+
+ntohl：将网络字节顺序（32位）转为主机字节
+
+记忆这类函数，主要看前面的n和后面的hl。。n代表网络，h代表主机host，l代表long的长度，还有相对应的s代表16位的short。
+16为的一般用于端口号。

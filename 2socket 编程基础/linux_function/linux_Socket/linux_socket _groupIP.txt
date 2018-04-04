@@ -1,0 +1,36 @@
+ struct ip_mreq group:https://zhidao.baidu.com/question/1947446827920990788.html
+ 
+ 应用程序通过命令字IP_ADD_MEMBERSHIP把一个socket加入到一个多播组
+ struct ip_mreq
+ {
+	struct in_addr imr_multiaddr;
+    struct in_addr imr_interface;
+ };
+ 该结构体的两个成员分别用于指定所加入的多播组的组IP地址，
+ 和所要加入组的那个本地接口的IP地址。
+ 该命令字没有源过滤的功能，它相当于实现IGMPv1的多播加入服务接口。(比较低级的接口)
+ 
+ fd = socket(AF_INET,SOCK_DGRAM,0);
+ memset(&servaddr, 0, sizeof(struct sockaddr_in));
+ servaddr.sin_family = AF_INET;
+ servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+ servaddr.sin_port = htons(lport);
+ if(bind(fd,(struct sockaddr *)&servaddr, sizeof(struct sockaddr_in)) < 0)
+ {
+	close(fd);
+    printf("bind port %u failed\n",lport);
+ }
+ group.imr_multiaddr.s_addr = inet_addr("238.238.238.238");
+ group.imr_interface.s_addr = htonl(INADDR_ANY);
+ if(setsockopt(fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, &group,sizeof(group)) < 0)
+ {
+    close(fd);
+    printf("set multi group failed\n");            
+ }
+ 
+ 删掉组播
+ group.imr_multiaddr.s_addr = inet_addr("238.238.238.238");
+ group.imr_interface.s_addr = htonl(INADDR_ANY);
+ setsockopt(fd, IPPROTO_IP, IP_DROP_MEMBERSHIP, &group,sizeof(group)) 
+ 
+ 

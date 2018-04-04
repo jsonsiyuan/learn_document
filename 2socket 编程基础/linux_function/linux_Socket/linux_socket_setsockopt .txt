@@ -1,0 +1,14 @@
+详见：https://www.cnblogs.com/yizhizaiYI/articles/5236221.html
+见到的例子：
+
+//1 允许套接口和一个已在使用中的地址捆绑
+setsockopt(fd, SOL_SOCKET, SO_REUSEADDR,(const char *)&reuse, sizeof( reuse ) ) 
+
+//2 加入组播
+setsockopt(fd, IPPROTO_IP, IP_ADD_MEMBERSHIP, &group,sizeof(group))
+
+//3 设置可以发送广播包
+setsockopt(fd,SOL_SOCKET, SO_BROADCAST,(uint8_t *)&broadcastEnable, sizeof(broadcastEnable))
+
+//4 删掉组播
+setsockopt(fd, IPPROTO_IP, IP_DROP_MEMBERSHIP, &group,sizeof(group)) 
