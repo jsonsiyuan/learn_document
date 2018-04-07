@@ -1,0 +1,31 @@
+官网： http://www.contiki-os.org
+1 Instant Contiki
+2 key:user
+3 Contiki 源代码位于user目录下的contiki 文件中。
+源代码在 git clone https://github.com/contiki-os/contiki.git.
+子模块：  git submodule update -init
+
+4代码结构：
+4.1 app
+一些功能的库
+4.2 core
+protothread 任务调度
+网络功能
+cfs 文件系统 在cpu的flash中建立，记录一些内容。
+4.3 cpu
+支持的cpu内容。
+4.4 platfrom
+支持的各类平台。contiki-main.c contiki-conf.http.熟悉各种配置也不容易。
+4.5 examples
+有很多例子。
+double ctime;//到达时间
+
+double rtime;//执行时间
+
+double stime;//开始时间
+
+double etime;//结束时间
+
+double ztime;//周转时间
+4.6 tool
+不多讲

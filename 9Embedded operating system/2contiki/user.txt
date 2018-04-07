@@ -1,0 +1,20 @@
+linux上面使用：
+cd ~/contiki/examples/hello-world/
+make TARGET=native
+./hello-world.native
+
+#include "contiki.h"
+
+#include <stdio.h> /* For printf() */
+/*---------------------------------------------------------------------------*/
+PROCESS(hello_world_process, "Hello world process"); 任务声明
+AUTOSTART_PROCESSES(&hello_world_process);          加入自启动队列   
+/*---------------------------------------------------------------------------*/
+PROCESS_THREAD(hello_world_process, ev, data) 任务主体
+{
+  PROCESS_BEGIN();
+
+  printf("Hello, world\n");
+
+  PROCESS_END();
+}
