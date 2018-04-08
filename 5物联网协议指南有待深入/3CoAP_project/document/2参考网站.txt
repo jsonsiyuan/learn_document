@@ -1,2 +1,4 @@
 1.–≠“ÈΩ≤Ω‚
 http://www.iana.org/assignments/core-parameters/core-parameters.xhtml
+2 all
+http://coap.technology/
