@@ -1,0 +1,2 @@
+git diff 不加参数即默认比较工作区与暂存区
+git diff [<commit-id>] [<commit-id>] 比较两个commit-id之间的差异
