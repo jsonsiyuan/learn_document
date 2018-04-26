@@ -1,0 +1,18 @@
+一 WPS连接简要介绍：
+
+1．  WPS功能有四种连接方式：PIN，PBC（PUSH BUTTON CONFIGURE），USB，NFC；
+
+PIN和PBC连接是目前 WPS设备最常用的；
+
+2．  PIN方式
+
+每个WPS设备会有一个PIN来用作设备识别码；
+
+PIN码是个8位数字，最后一位不是随意的数字，是由前面7位数字经过计算得到的一个CheckSum；
+
+在AP上输入WPS Client设备的PIN即可完成连接/在WPS Client设备上输入AP的PIN即可完成连接。
+
+3．  PBC方式
+在AP或者WPS Client上按下WPS按钮，120秒内在另一设备上按下WPS按钮wifi即可自动完成连接。
+
+最常用的的还是PBC。

@@ -1,0 +1,1 @@
+web:https://www.kernel.org/doc/html/latest/process/license-rules.html
