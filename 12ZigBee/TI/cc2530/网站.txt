@@ -1,0 +1,45 @@
+1.低功耗参数设置
+http://www.bkjia.com/Androidjc/1018822.html
+
+2.我正在看【ZigBee动态修改PanID - KingMumuの博客 - CSDN博客】，分享给你，一起看吧！ 
+http://m.blog.csdn.net/u011195662/article/details/70242017
+
+我正在看【ZigBee中PANID的修改 - Robot Man - CSDN博客】，分享给你，一起看吧！ 
+http://m.blog.csdn.net/robot__man/article/details/50526072
+
+
+
+osal_nv_item_init( ipaddress, sizeof( ip ), NULL );
+     osal_nv_read( ipaddress, 0, sizeof(  ip ),(&ip) ); 
+     if(ip!=0x0f)
+     {
+        _NIB.nwkLogicalChannel = 0x0C; //12
+        _NIB.nwkPanId = 0x000C;
+
+        NLME_UpdateNV(0x01);
+         a=0x00001000;
+        
+        zgConfigPANID = 0x000c;
+        
+        osal_nv_item_init( ipaddress, osal_nv_item_len( ZCD_NV_PANID ), NULL );
+        osal_nv_write(ZCD_NV_PANID, 0, osal_nv_item_len( ZCD_NV_PANID ), &zgConfigPANID);
+        osal_nv_write(ZCD_NV_CHANLIST, 0, osal_nv_item_len( ZCD_NV_CHANLIST ), &a);
+        ip=0x0f;
+        	#if  (debug_level==1) 
+		HalUARTWrite(0,"set channel id\r\n",16);
+         
+	#endif
+       osal_nv_item_init( ipaddress, sizeof( ip ), NULL );
+        osal_nv_write( ipaddress, 0, sizeof(  ip ),(&ip) ); 
+        osal_start_timerEx( GenericApp_TaskID,
+			                GENERICAPP_reboot_EVT,1000 );
+        
+     }
+      pan_id=_NIB.nwkPanId;
+      array_a[0]=((pan_id>>12)%16)+0x30;
+      array_a[1]=((pan_id>>8)%16)+0x30;
+      array_a[2]=((pan_id>>4)%16)+0x30;
+      array_a[3]=(pan_id%16)+0x37;
+     array_a[4]='\r';
+     array_a[5]='\n';
+      HalUARTWrite(0,array_a,6);
