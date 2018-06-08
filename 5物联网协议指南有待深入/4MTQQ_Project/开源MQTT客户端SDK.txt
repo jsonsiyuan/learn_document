@@ -1,1 +1,2 @@
 https://www.eclipse.org/paho/downloads.php
+https://github.com/mqtt/mqtt.github.io/wiki/libraries?spm=a2c4g.11186623.2.5.mghlGU
