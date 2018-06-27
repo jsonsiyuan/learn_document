@@ -1,0 +1,3 @@
+ar   r[ab][f][u]  ------   把目标文件转换为静态库
+ar   -vt libtest.a  查看静态库中有哪些目标文件  （实际上就相当于： objdump -a libtest.a）
+ar   -x libtest.a   将静态库中的目标文件取（解压）出来， 放在当前目录下。

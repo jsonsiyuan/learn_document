@@ -1,0 +1,11 @@
+gcc -o hello hello.c   -I/home/hello/include   -L/home/hello/lib    -lworld
+-I /home/hello/include，表示将/home/hello/include目录作为第一个寻找头文件的目录，寻找的顺序是：/home/hello/include–>/usr/include–>/usr/local/include
+
+    也就是指定优先查找的目录，找不到的话查找默认目录
+
+-L /home/hello/lib，表示将/home/hello/lib目录作为第一个寻找库文件的目录， 寻找的顺序是：/home/hello/lib–>/lib–>/usr/lib–>/usr/local/lib
+
+    同上，也是指定优先查找的目录
+
+-l word , 表示**寻找动态链接库文件**libword.so（也就是文件名去掉前缀和后缀所代表的库文件)
+
