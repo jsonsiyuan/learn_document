@@ -1,0 +1,4 @@
+setsockopt(_g_pdev->lan_socket, 
+                SOL_SOCKET, SO_BROADCAST, 
+                (uint8_t *)&broadcastEnable, 
+                sizeof(broadcastEnable)) ;

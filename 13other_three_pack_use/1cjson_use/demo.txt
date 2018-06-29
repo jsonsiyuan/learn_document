@@ -1,0 +1,54 @@
+#define cJSON_False 0
+#define cJSON_True 1
+#define cJSON_NULL 2
+#define cJSON_Number 3
+#define cJSON_String 4
+#define cJSON_Array 5
+#define cJSON_Object 6
+
+typedef struct cJSON {
+    struct cJSON *next,*prev;    /* next/prev allow you to walk array/object chains. Alternatively, use GetArraySize/GetArrayItem/GetObjectItem */
+    struct cJSON *child;        /* An array or object item will have a child pointer pointing to a chain of the items in the array/object. */
+
+    int type;                    /* The type of the item, as above. cjson结构的类型上面宏定义的7中之一*/
+
+    char *valuestring;            /* The item's string, if type==cJSON_String */
+    int valueint;                /* The item's number, if type==cJSON_Number */
+    double valuedouble;            /* The item's number, if type==cJSON_Number */
+
+    char *string;                /* The item's name string, if this item is the child of, or is in the list of subitems of an object. */
+} cJSON;
+
+一、解析json
+extern cJSON *cJSON_Parse(const char *value);//从 给定的json字符串中得到cjson对象
+extern char  *cJSON_Print(cJSON *item);//从cjson对象中获取有格式的json对象.cJSON_Print会申请内存，text要free掉
+extern char  *cJSON_PrintUnformatted(cJSON *item);//从cjson对象中获取无格式的json对象
+extern void   cJSON_Delete(cJSON *c);//删除cjson对象，释放链表占用的内存空间
+extern int    cJSON_GetArraySize(cJSON *array);//获取cjson对象数组成员的个数
+extern cJSON *cJSON_GetArrayItem(cJSON *array,int item);//根据下标获取cjosn对象数组中的对象
+extern cJSON *cJSON_GetObjectItem(cJSON *object,const char *string);//根据键获取对应的值（cjson对象）
+extern const char *cJSON_GetErrorPtr(void);//获取错误字符串
+二、构造json：
+extern cJSON *cJSON_CreateObject(void);
+extern void cJSON_AddItemToObject(cJSON *object,const char *string,cJSON *item);
+
+extern cJSON *cJSON_CreateNull(void);
+extern cJSON *cJSON_CreateTrue(void);
+extern cJSON *cJSON_CreateFalse(void);
+extern cJSON *cJSON_CreateBool(int b);
+extern cJSON *cJSON_CreateNumber(double num);
+extern cJSON *cJSON_CreateString(const char *string);
+extern cJSON *cJSON_CreateArray(void);
+extern cJSON *cJSON_CreateObject(void);
+
+demo:
+"semantic": {
+        "slots":    {
+            "name": "张三"
+        }
+    },
+    "rc":   0,
+
+cJSON_AddItemToObject(root, "text", cJSON_CreateString("打电话给张三"));
+cJSON_AddItemToObject(root, "semantic", item);//root节点下添加semantic节点
+cJSON_AddItemToObject(item, "slots", next);//semantic节点下添加item节点
