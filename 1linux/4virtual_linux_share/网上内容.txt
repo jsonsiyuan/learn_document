@@ -1,3 +1,6 @@
 https://www.cnblogs.com/ygh1229/p/6379817.html
 open-vm-tools-dkms
 vmhgfs-fuse Õâ¸öÇý¶¯
+
+//virtual box
+sudo mount -t vboxsf share /mnt/share
