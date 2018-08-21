@@ -1,0 +1,9 @@
+demo 字符串转数字:
+foo.sin_addr.s_addr = inet_addr(cp);  
+代替代码：
+inet_pton(AF_INET, cp, &foo.sin_addr); 
+
+demo 数字转字符串:
+ptr=inet_ntoa(foo.sin_addr)；
+char str[INET_ADDRSTRLEN];
+prt =inet_ntop(AF_INET,&foo.sin_addr,str,sizeof(str));
