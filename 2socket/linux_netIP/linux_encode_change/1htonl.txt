@@ -1,0 +1,2 @@
+#include <arpa/inet.h>
+uint32_t htonl(uint32_t hostlong); //主机字节顺序表达的32位数 

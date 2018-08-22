@@ -1,3 +1,0 @@
-#include <netinet/in.h>
-uint16_t ntohs(uint16_t netshort);
-

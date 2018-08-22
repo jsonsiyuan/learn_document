@@ -1,0 +1,18 @@
+ioctl 去获得socket 的ip.
+ioctl:
+ioctl是设备驱动程序中对设备的I/O通道进行管理的函数。所谓对I/O通道进行管理，就是对设备的一些特性进行控制，例如串口的传输波特率、马达的转速等等.
+
+ioctl 去获得IP地址 code：
+struct ifreq ifr;
+int fd = socket(AF_INET, SOCK_DGRAM, 0);
+ifr.ifr_addr.sa_family = AF_INET;
+strncpy(ifr.ifr_name, "eth0", (IFNAMSIZ - 1));
+ioctl(fd, SIOCGIFADDR, &ifr);
+/*获得IP地址*/
+sprintf(ip_buf, "%s", inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
+代码分解：
+https://blog.csdn.net/evenness/article/details/7665970
+SIOCGIFADDR 获取接口地址 struct ifreq
+struct ifreq结构体：
+这个结构定义在/usr/include/net/if.h，用来配置和获取ip地址，掩码，MTU等接口信息的
+https://blog.csdn.net/gujintong1110/article/details/45530911

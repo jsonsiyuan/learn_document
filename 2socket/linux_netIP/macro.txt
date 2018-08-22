@@ -1,0 +1,12 @@
+﻿INADDR_ANY:
+
+Linux中在/usr/include/netinet/in.h
+#define INADDR_ANY ((in_addr_t) 0x00000000)
+
+sin.sin_addr.s_addr = htonl(INADDR_ANY);
+
+AF_INET:
+AF_INET（又称 PF_INET）是 IPv4 网络协议的套接字类型;
+AF_INET6 则是 IPv6 的；
+
+

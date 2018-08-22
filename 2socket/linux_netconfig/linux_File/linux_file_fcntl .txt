@@ -1,0 +1,30 @@
+﻿http://www.cnblogs.com/xuyh/p/3273082.html
+用命令F_GETFL和F_SETFL设置文件标志，比如阻塞与非阻塞
+
+F_SETFL     设置给arg描述符状态标志,可以更改的几个标志是：O_APPEND， O_NONBLOCK，O_SYNC和O_ASYNC。
+
+命令字(cmd)F_GETFL和F_SETFL的标志如下面的描述:            
+
+O_NONBLOCK      非阻塞I/O;如果read(2)调用没有可读取的数据,或者如果write(2)操作将阻塞,read或write调用返回-1和EAGAIN错误  
+
+O_APPEND        强制每次写(write)操作都添加在文件大的末尾,相当于open(2)的O_APPEND标志         
+
+O_DIRECT      最小化或去掉reading和writing的缓存影响.系统将企图避免缓存你的读或写的数据.如果不能够避免缓存,那么它将最小化已经被缓存了的数据造成的影响.如果这个标志用的不够好,将大大的降低性能                     
+
+O_ASYNC          当I/O可用的时候,允许SIGIO信号发送到进程组,例如:当有数据可以读的时候
+
+注意：      在修改文件描述符标志或文件状态标志时必须谨慎，先要取得现在的标志值，然后按照希望修改它，最后设置新标志值。不能只是执行F_SETFD或F_SETFL命令，这样会关闭以前设置的标志位。
+
+列子：
+//使用非阻塞io
+if(flags = fcntl(STDIN_FILENO, F_GETFL, 0) < 0)
+{
+    perror("fcntl");
+    return -1;
+}
+flags |= O_NONBLOCK;
+if(fcntl(STDIN_FILENO, F_SETFL, flags) < 0)
+{
+    perror("fcntl");
+    return -1;
+}
