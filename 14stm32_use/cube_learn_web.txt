@@ -1,1 +1,10 @@
-http://www.waveshare.net/study/portal.php?mod=list&catid=38
+1.stm32cube:http://www.waveshare.net/study/portal.php?mod=list&catid=38
+
+2.IAP:  https://blog.csdn.net/iicyl/article/details/78092604
+		https://blog.csdn.net/eagle11235/article/details/53983488
+		https://blog.csdn.net/u013165704/article/details/72828249/
+		key:https://www.cnblogs.com/yangfengwu/p/6921832.html
+		
+3.NFC   https://www.cnblogs.com/androidsj/p/3856427.html	
+		https://blog.csdn.net/wolfking0608/article/details/72675017
+4.flash https://blog.csdn.net/m0_37935132/article/details/71425486

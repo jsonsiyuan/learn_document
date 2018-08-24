@@ -1,0 +1,81 @@
+#include <sys/select.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <pthread.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <strings.h>
+#include <errno.h>
+
+#include "bulllink_lan_proc.h"
+#include "bulllink_device.h"
+#include "bulllink_wan_proc.h"
+
+static int _LinkInited = 0;
+static void *_BullinkMainLoop(void *arg)
+{
+	fd_set rdfd;
+	fd_set rdtmpfd;
+	int maxfd,ret;
+	struct timeval timeout;
+	struct timeval wanTimestamp;
+	struct timeval lanTimestamp;
+	int interval;
+	BLDevice_t *pDevice = bulllink_device_get();
+
+
+	interval = 5000;
+	Bull_ResetTimer(&wanTimestamp);
+	Bull_ResetTimer(&lanTimestamp);
+	while(_LinkInited)
+	{
+		if (pDevice->lan_socket < 0){
+			if (Bull_IsTimeout(lanTimestamp,10*1000)){
+				printf("lan socket fail,reinitialization\n");
+				//bullink_lan_init();
+				Bull_ResetTimer(&lanTimestamp);
+			}
+		}
+
+		if (Bull_IsTimeout(wanTimestamp,interval)){
+			interval = bulllink_proc_wan_st();
+			printf("wan Bull_IsTimeout,interval:%d\n",interval);
+			Bull_ResetTimer(&wanTimestamp);
+		}
+
+		FD_ZERO(&rdfd);
+		maxfd = 0;
+		if (pDevice->lan_socket > 0){
+			FD_SET(pDevice->lan_socket,&rdfd);
+			maxfd = maxfd > pDevice->lan_socket?maxfd:pDevice->lan_socket;
+		}
+
+		if (pDevice->server_socket > 0){
+			FD_SET(pDevice->server_socket,&rdfd);
+			maxfd = maxfd > pDevice->server_socket?maxfd:pDevice->server_socket;
+		}
+
+		timeout.tv_sec = 1;
+		timeout.tv_usec = 0;
+		ret = select(maxfd+1,&rdfd,NULL,NULL,&timeout);
+		if (ret < 0){
+			printf("select error:%s\n",strerror(errno));
+			continue;
+		}else if (ret == 0){
+			continue;
+		}
+
+		printf("select into\n");
+		int ifd;
+		for (ifd = 0; ifd < maxfd+1 && ret > 0; ++ifd){
+			if (!FD_ISSET(ifd,&rdfd))continue;
+			if (ifd == pDevice->lan_socket){
+				bulllink_lan_recv_proc();
+			}else if (ifd == pDevice->server_socket){
+				bulllink_wan_recv_proc();
+			}
+			ret -= 1;
+		}
+	}
+}
