@@ -1,0 +1,4 @@
+Code为程序代码部分
+RO-data 表示 程序定义的常量const temp;
+RW-data 表示 已初始化的全局变量
+ZI-data 表示 未初始化的全局变量
