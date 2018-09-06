@@ -1,5 +1,5 @@
 ﻿http://www.cnblogs.com/xuyh/p/3273082.html
-用命令F_GETFL和F_SETFL设置文件标志，比如阻塞与非阻塞
+用命令F_GETFL和F_SETFL设置文件标志，比如阻塞与非阻塞.信号模式等
 
 F_SETFL     设置给arg描述符状态标志,可以更改的几个标志是：O_APPEND， O_NONBLOCK，O_SYNC和O_ASYNC。
 

@@ -1,0 +1,5 @@
+https://www.i2c-bus.org/clock-stretching/
+https://www.cnblogs.com/bixiaopengblog/p/7469536.html
+
+IIC 关于时钟拉伸问题 clock stretch：
+https://blog.csdn.net/happygaohualei/article/details/52864694
