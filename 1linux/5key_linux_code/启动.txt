@@ -1,0 +1,45 @@
+#!/bin/sh
+
+#MQTT_CLIENT=/bin/ym-mqtt-gw
+MQTT_CLIENT=/overlay/sfswitch
+MQTT_SERVER=/usr/sbin/mosquitto
+LOG=/tmp/check.log
+cnt=0
+restart_mqtt_client()
+{
+    tm = `date`
+    echo "$tm : restart mqtt-client" >> $LOG
+#    $MQTT_CLIENT /overlay/db /dev/ttyS0 &
+     cd /overlay
+     $MQTT_CLIENT &
+}
+restart_mqtt_server()                       
+{                                           
+    tm = `date`                             
+    echo "$tm : restart mosquitto" >> $LOG  
+    $MQTT_SERVER -c /etc/mosquitto.conf & 
+}
+
+while true                                                                                                                                                                                                     
+do                                                                                                                                                                                                             
+    if [ 0 -eq $(($cnt%7)) ] ; then                                                                                                                                                                            
+        MQTT_CLIENT_PID=`pidof sfswitch`                                                                                                                                                                       
+        if [ "$MQTT_CLIENT_PID" = "" ] ; then                                                                                                                                                                  
+            restart_mqtt_client                                                                                                                                                                                
+        fi                                                                                                                                                                                                     
+    fi                                                                                                                                                                                                         
+                                                                                                                                                                                                               
+    if [ 0 -eq $(($cnt%23)) ] ; then                                                                                                                                                                           
+        MQTT_SERVER_PID=`pidof mosquitto`                                                                                                                                                                      
+        echo "mqtt-server:pid:$MQTT_SERVER_PID"                                                                                                                                                                
+        if [ "$MQTT_SERVER_PID" = "" ] ; then                                                                                                                                                                  
+            restart_mqtt_server                                                                                                                                                                                
+        fi                                                                                                                                                                                                     
+    fi                                                                                                                                                                                                         
+                                                                                                                                                                                                               
+    cnt=$(($cnt+1))                                                                                                                                                                                            
+    if [ 2147483647 -eq $cnt ] ; then                                                                                                                                                                          
+        cnt=0                                                                                                                                                                                                  
+    fi                                                                                                                                                                                                         
+    sleep 1                                                                                                                                                                                                    
+done 

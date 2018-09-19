@@ -1,0 +1,13 @@
+https://wenku.baidu.com/view/961c72a1856a561252d36f81.html
+
+PCD 管理进入能量场的多张卡的命令
+1.REQA
+2.WAKE-UP
+3.ANTICOLLISION
+4.SELECT
+5.HALT
+
+请求和唤醒帧用来初始化通信：
+REQA:26 WAKE-UP:52 
+防冲突：93 95 97
+

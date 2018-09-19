@@ -1,0 +1,18 @@
+https://wenku.baidu.com/view/961c72a1856a561252d36f81.html
+ATQ 对请求的应答
+ATQA 对A型卡请求的应答
+ATQB 对B型卡请求的应答
+ATR 对重新启动的请求的应答
+ATS 对选择请求的应答
+ATQ-ID 对 ID号请求的应答
+
+CRC 环检验码
+RATS 对选择应答请求
+REQA 对A型卡的请求
+REQB 对B型卡的请求
+REQ-ID 请求ID号
+
+SELECT 选择
+HALT 结束
+PICC邻近卡
+collision 碰撞
