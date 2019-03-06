@@ -1,4 +1,0 @@
-MQTT (Message Queue Telemetry Transport)
-核心就是有个中间人。
-是发布/订阅模式
-缺点：所以得通信以主题为核心内容
