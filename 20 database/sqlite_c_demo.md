@@ -277,3 +277,9 @@ demo:
 	   sqlite3_close(db);
 	   return 0;
 	}
+
+# 注意事项 #
+
+编译缺少头文件：
+
+>     sudo apt-get install libsqlite3-dev
