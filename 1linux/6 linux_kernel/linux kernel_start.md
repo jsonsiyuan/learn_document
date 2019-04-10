@@ -81,12 +81,13 @@ linux code is 抽象和分层。
 **BusyBox 是一个集成了三百多个最常用Linux命令和工具的软件。主要用在嵌入式中**
 
 - make menuconfig &&make &&make install生成一个_install 目录。
+- busybox setting -->built..--->built busy static 编译成静态
 - 把该目录放到linux-4.0（内核文件中）
 
 
 ---
 
-### 内核中文件添加 ###
+### _install 内核中文件添加 ###
 
 - 建立一些文件夹
 - 
@@ -95,7 +96,7 @@ linux code is 抽象和分层。
     mkdir mnt
     make -p etc/init.d/
 
-- 在init.d 中创建文件rcS。
+- 在init.d 中创建文件rcS，并修改为可执行 chomd+x。
 - 
     mkdir -p /proc
     mkdir -p /tmp
@@ -119,7 +120,7 @@ linux code is 抽象和分层。
 
 - 在_install/etc 新建一个inittab(init初始化程序用到的配置文件) 文件
 - 
-	::sysinit:/etc/init.d/rsS
+	::sysinit:/etc/init.d/rcS
 	::respawn:~/bin/sh
 	::askfirst:~/bin/sh
 	::ctrlaltdel:/bin/umount -a -r
@@ -137,7 +138,14 @@ linux code is 抽象和分层。
     export CROSS_COMPILE=arm-linux-gnueabi-
     make vexpress_defconfig
     make menuconfig
-
+-------
+    GENERAL SETUP [*]Inital RAM filesystem ....(_install)...
+    
+    boot options--()default kernel ....
+    
+    kernel features-->memory split 3g/1g
+	[*]high memory ...
+-------
     make bzImage -j4 
     make dtbs   #制作设备树
 
@@ -146,7 +154,7 @@ linux code is 抽象和分层。
     
 demo：
 
-    qemu-system-arm -M vexpress-a9 -m 512M -kernel arch/arm/boot/zImage -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic -append "root=/dev/mmcblk0 rw console=ttyAMA0" -sd a9rootfs.ext3
+    qemu-system-arm -M vexpress-a9 -smp 4 -m 200M -kernel arch/arm/boot/zImage -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic -append "rdinit=/linuxrc console=ttyAMA0 loglevel=8 " 
 
 
 ## note： ##
