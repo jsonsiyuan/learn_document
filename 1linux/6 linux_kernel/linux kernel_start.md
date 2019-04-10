@@ -27,7 +27,7 @@ linux code is 抽象和分层。
 先下载一些软件包：
 
     
-- sudo apt-get insatll libncurses5-dev libssl-dev build-essential openssl
+- sudo apt-get install libncurses5-dev libssl-dev build-essential openssl
 
 - 	下载内核文件 
 - 	内核配置     make menuconfig 
@@ -56,9 +56,12 @@ linux code is 抽象和分层。
 
 **demo：加入一些编译软件**
 
-	sudo update-alternatives --install /user/bin/arm-linux-gnueabi-gcc arm-linux-gnueabi-gcc /user/bin/arm-linux-gnueabi-gcc-5 5
+	ls /usr/bin |grep gcc
 
-	sudo update-alternatives --install /user/bin/arm-linux-gnueabi-gcc arm-linux-gnueabi-gcc /user/bin/arm-linux-gnueabi-gcc-8 8
+	sudo update-alternatives --install /usr/bin/arm-linux-gnueabi-gcc arm-linux-gnueabi-gcc /usr/bin/arm-linux-gnueabi-gcc-5 5
+
+	
+
 
 **在内核中加入设备**
 
@@ -119,7 +122,7 @@ linux code is 抽象和分层。
 	::sysinit:/etc/init.d/rsS
 	::respawn:~/bin/sh
 	::askfirst:~/bin/sh
-	::ctrlaltdel:/bin/umount -a-r
+	::ctrlaltdel:/bin/umount -a -r
 	
 - 在_install/dev 加入设备节点
 - 
