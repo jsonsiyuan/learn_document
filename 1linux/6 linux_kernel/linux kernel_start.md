@@ -52,7 +52,7 @@ linux code is 抽象和分层。
 
 使用update-alternative 选择一个配置
 
-	update-alternatives --config <link>
+	sudo update-alternatives --config <link>
 
 **demo：加入一些编译软件**
 
@@ -80,6 +80,9 @@ linux code is 抽象和分层。
 
 **BusyBox 是一个集成了三百多个最常用Linux命令和工具的软件。主要用在嵌入式中**
 
+	export ARCH=arm
+    export CROSS_COMPILE=arm-linux-gnueabi-
+
 - make menuconfig &&make &&make install生成一个_install 目录。
 - busybox setting -->built..--->built busy static 编译成静态
 - 把该目录放到linux-4.0（内核文件中）
@@ -94,7 +97,7 @@ linux code is 抽象和分层。
     mkdir etc
     mkdir dev
     mkdir mnt
-    make -p etc/init.d/
+    mkdir -p etc/init.d/
 
 - 在init.d 中创建文件rcS，并修改为可执行 chomd+x。
 - 
@@ -146,7 +149,7 @@ linux code is 抽象和分层。
     kernel features-->memory split 3g/1g
 	[*]high memory ...
 -------
-    make bzImage -j4 
+    make bzImage -j4 ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
     make dtbs   #制作设备树
 
 
