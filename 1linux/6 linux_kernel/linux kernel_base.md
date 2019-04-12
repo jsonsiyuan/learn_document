@@ -38,11 +38,20 @@ case 1 ... 3
 
 - 变量属性和类型属性
 - 
-alignment,packed,sections
+alignment
+packed
+sections
 
 - 内建函数
 - 
-__builtin_expect
-__builtin_prefetch
+    __builtin_expect   --->exp==c 的概率很大
+    __builtin_prefetch --->主动进行数据预取
+
+-UL
+-
+    unsigned long
+
+
+
 
 

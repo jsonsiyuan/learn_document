@@ -112,7 +112,7 @@ linux code is 抽象和分层。
     mdev -s
 
 
-- 在_install /etc 建立一个fstab（自动挂载文件） 并写入
+- 在_install /etc 建立一个fstab（自动挂载文件）并修改为可执行 chomd+x。 并写入
 -  
 
     proc /proc proc defaults 0 0
@@ -121,7 +121,7 @@ linux code is 抽象和分层。
     tmpfs /dev tmpfs defaults 0 0
     debugfs /sys/kernel/debug debugfs defaults 0 0
 
-- 在_install/etc 新建一个inittab(init初始化程序用到的配置文件) 文件
+- 在_install/etc 新建一个inittab(init初始化程序用到的配置文件) 文件 并修改为可执行 chomd+x。
 - 
 	::sysinit:/etc/init.d/rcS
 	::respawn:~/bin/sh
@@ -159,7 +159,11 @@ demo：
 
     qemu-system-arm -M vexpress-a9 -smp 4 -m 200M -kernel arch/arm/boot/zImage -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic -append "rdinit=/linuxrc console=ttyAMA0 loglevel=8 " 
 
+	sudo mkdir -p /tmp/sun_test
 
+	qemu-system-arm -M vexpress-a9 -smp 4 -m 100M -kernel arch/arm/boot/zImage -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic -append "rdinit=/linuxrc console=ttyAMA0 loglevel=8 slub_debug kmemleak=on" --fsdev local,id=kmod_dev,path=/tmp/sun_test,security_model=none -device virtio-9p-device,fsdev=kmod_dev,mount_tag=kmod_mount 
+
+	mount -t 9p -o trans=virtio kmod_mount /mnt
 ## note： ##
 - inittab
 - 
