@@ -1,4 +1,10 @@
 # ARM GCC #
+**命名规则**
+
+    [arch] [-os] [-(gnueabi)]
+    arch 芯片架构
+    os 表示目标操作系统
+    eabi 嵌入式应用二进制接口
 
 - arm-linux-gnueabi-gcc ARM32
 - aarch-linux-gnueabi-gcc ARM64
@@ -50,6 +56,31 @@ sections
 -UL
 -
     unsigned long
+
+# 实验 #
+
+## demo1 ##
+
+- arm-linux-gnueabi-gcc ...  --static
+
+## demo2 ##
+
+**内核链表**
+
+
+	include/linux/list.h
+
+## demo3 ##
+
+**红黑树**
+
+	lib/rbtree  include/linux/rbtree.h
+
+**无锁环形缓冲**
+
+	include/linux/kfifo.h
+
+	
 
 
 
