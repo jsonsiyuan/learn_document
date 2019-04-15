@@ -64,6 +64,63 @@
     	.write=demodrv_write,
     };
 
+	static __init simple_char_init(void)
+    {
+    	int ret;
+    	ret=alloc_chrdev_region(&dev,0,count,DEMO_NAME);
+    	if(ret)
+    	{
+    		printk("failed to allocate char device region");
+    		return ret;
+    	}
+    
+    	demo_cdev=cdev_alloc();
+    	if(!demo_cdev)
+    	{
+    		printk("cdev_alloc failed\n");
+    		goto unregister_chrdev;
+    
+    	}
+    	cdev_init(demo_cdev,&demodrv_fops);
+    
+    	ret=cdev_add(demo_cdev,&demodrv_fops);
+    	if(ret)
+    	{
+    		printk("cdev_add failed\n");
+    		goto cdev_fail;
+    	}
+    	printk("succeeded register char device:%s\n",DEMO_NAME);
+    	printk("Major number =%d,minor number=%d\n",MAJOR(DEV),MINOR(dev))；
+    	return 0；
+    
+    	cdev_fail:
+    		cdev_del(demo_cdev);
+    
+		unregister_chrdev:
+    		unregister_chrdev_region(dev,count);
+    
+    	return 0;
+    }
+
+    static void __exit simple_char_exit(void)
+    {
+    	printk("removing device\n");
+    	if(demo_cdev)
+    	{
+    		cdev_del(demo_dev);
+    	}
+    	unregister_chrdev_region(dev,count);
+    }
+
+    module_init(simple_char_init);
+    module_exit(simple_char_exit);
+    MODULE_AUTHOR("SUN");
+    MODULE_LICENSE("GPL v2");
+    MODULE_DESCRIPTION("simpe character device");
+
+
+Makefile:
+
 
 	
 
