@@ -18,6 +18,7 @@
 - 了解缩写驱动的芯片工作原理
 
 ## 一个简单的字符驱动例子 ##
+	my_demodrv.c
 
     #include <linux/module.h>
     #include <linux/fs.h>
@@ -26,11 +27,12 @@
     #include <linux/cdev.h>
 
     #define DEMO_NAME "my_demo_dev"
+
     static dev_t dev;
     static struct cdev *demo_cdev;
     static signed count=1;
     
-    static int demodrv_open(struct inode *inode,static file *file)
+    static int demodrv_open(struct inode *inode,struct file *file)
     {
     	int major =MAJOR(inode->i_rdev);
     	int minor =MINOR(inode->i_rdev);
@@ -64,7 +66,7 @@
     	.write=demodrv_write,
     };
 
-	static __init simple_char_init(void)
+	static int __init simple_char_init(void)
     {
     	int ret;
     	ret=alloc_chrdev_region(&dev,0,count,DEMO_NAME);
@@ -83,15 +85,15 @@
     	}
     	cdev_init(demo_cdev,&demodrv_fops);
     
-    	ret=cdev_add(demo_cdev,&demodrv_fops);
+    	ret=cdev_add(demo_cdev,dev,count);
     	if(ret)
     	{
     		printk("cdev_add failed\n");
     		goto cdev_fail;
     	}
     	printk("succeeded register char device:%s\n",DEMO_NAME);
-    	printk("Major number =%d,minor number=%d\n",MAJOR(DEV),MINOR(dev))；
-    	return 0；
+    	printk("Major number =%d,minor number=%d\n",MAJOR(dev),MINOR(dev));
+    	return 0;
     
     	cdev_fail:
     		cdev_del(demo_cdev);
@@ -107,7 +109,7 @@
     	printk("removing device\n");
     	if(demo_cdev)
     	{
-    		cdev_del(demo_dev);
+    		cdev_del(demo_cdev);
     	}
     	unregister_chrdev_region(dev,count);
     }
@@ -119,7 +121,58 @@
     MODULE_DESCRIPTION("simpe character device");
 
 
-Makefile:
+## Makefile: ##
+
+    BASEINCLUDE ?= /lib/modules/`uname -r`/build
+    mydemo-objs :=my_demodrv.o
+    obj-m :=mydemo.o
+    
+    all:
+    	$(MAKE) -C $(BASEINCLUDE) M=$(PWD) modules;
+    clean:
+    	$(MAKE) -C  $(BASEINCLUDE) SUBDIRS=$(PWD) clean;
+    
+    	rm -f *.ko;
+
+## 后续步骤 ##
+	sudo insmod mydemo.ko
+	
+	cat /proc/devices
+
+	生成的设备需要在/dev 目录下面生成对应的节点：
+	根据具体的情况：
+	mknod /dev/demo_drv c 252 0
+	ls -l 查看/dev/目录
+
+## 用户空间的测试程序 ##
+
+	**test.c**
+
+    #include <stdio.h>
+    #include<fcntl.h>
+    #include<unistd.h>
+    
+    #define DEMO_DEV_NAME "/dev/demo_drv"
+    int main ()
+    {
+    	char buffer[64];
+    	int fd;
+    	fd=open(DEMO_DEV_NAME,O_RDONLY);
+    	if(fd<0)
+    	{
+    		printf("open device %s failed\n",DEMO_DEV_NAME);
+    		return -1;
+    	}
+    	read(fd,buffer,64);
+    	close(fd);
+    	return 0;
+    
+    }
+
+
+
+
+
 
 
 	
