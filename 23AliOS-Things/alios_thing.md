@@ -12,6 +12,10 @@
 
 > https://blog.csdn.net/xh870189248/article/details/82692224
 
+### 参考的demo ###
+
+> 参考demo_wifi单品开发
+
 ### netmgr 介绍 ###
 -----
 **底层wifi API 再次抽象层**
