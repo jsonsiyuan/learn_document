@@ -1,0 +1,6 @@
+方法1: $(info, "here add the debug info")
+	但是此不能打印出.mk的行号
+方法2: $(warning, "here add the debug info")
+
+方法3: $(error "error: this will stop the compile")
+	这个可以停止当前makefile的编译
