@@ -35,4 +35,11 @@ SSL位于应用层和传输层之间，SSL协议本身分为两层。
 - 上层为SSL握手协议（SSL handshake protocol）、SSLpassword变化协议（SSL change cipher spec protocol）和SSL警告协议（SSL alert protocol）
 - 底层为SSL记录协议（SSL record protocol）
 
+## 建立ssl连接的过程 ##
+- 1 建立SSL环境。
+- 2 socket连接。
+- 3 设置证书的等级模式。
+- 4 ssl和socket对接。
+- 5 发送和接收数据。
+
 
