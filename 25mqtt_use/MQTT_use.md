@@ -3,14 +3,15 @@
 ## 服务器 ##
 
 web：
-
 	http://www.mosquitto.org/
-
-不是官方的url
+tool:
+	https://github.com/mqtt/mqtt.github.io/wiki/software?id=software
 	
+博客
 	https://lanseyujie.com/post/mosquitto-installation-and-usage.html
-	https://yq.aliyun.com/articles/664236?spm=a2c4e.11155472.0.0.32a34da1C4EpZJ
 	https://www.cnblogs.com/chen1-kerr/p/7258487.html
+	https://www.cnblogs.com/yueli/category/1072998.html
+
 
 # 自己的总结 #
 ## 下载 ##
@@ -80,21 +81,29 @@ demo:
 	sudo ln -s /usr/local/lib/libmosquitto.so.1 /usr/lib/libmosquitto.so.1
 	ldconfig
 
-修改配置
-demo：
 
+##mosquitto.conf 详细讲解##
+https://www.cnblogs.com/yueli/p/7486043.html
+
+### 用户机制 ###
 	sudo nano /etc/mosquitto/mosquitto.conf
 	
+
 	# 禁止匿名访问
 	allow_anonymous false
 	# 账号密码文件
 	password_file /etc/mosquitto/pwfile
+	
+** 创建用户名和密码、打开命令窗口 键入如下命令**
+加入admin **用户，提示连续两次输入密码**。
+	mosquitto_passwd -c /etc/mosquitto/pwfile.example admin
+
+### 用户权限管理 ###
+
 	# 配置topic和用户关系
 	acl_file /etc/mosquitto/aclfile
-	
-	# 新增用户 choi 并设置密码为 lanseyujie [注意: 使用 -c 参数为创建一个文件，这将会覆盖已有文件！]
-	sudo mosquitto_passwd -c /etc/mosquitto/pwfile choi
-	
+**配置topic**
+
 	sudo /etc/mosquitto/aclfile
 	
 	user choi
@@ -109,11 +118,26 @@ demo：
 	# 发布消息
 	mosquitto_pub -h 127.0.0.1 -t testtopic -u choi -P lanseyujie -m "Hello MQTT"
 
+### Mosquitto 高级应用之SSL/TLS ###
+
+准本工作： 一台 Linux 服务器、 安装好 openssl
+
+
+
+
 
 ## 代码使用 ##
+**相关代码功能介绍**
+**eclipse.paho**
+http://www.eclipse.org/paho/downloads.php
 
 
+## Desktop tools ##
 
+MQTT.fx - MQTT.fx is a MQTT Client written in Java based on Eclipse Paho.
+http://mqttfx.org/
+教程
+https://www.alibabacloud.com/help/zh/doc-detail/86706.htm
 
 
 
