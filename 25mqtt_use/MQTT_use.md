@@ -120,16 +120,28 @@ https://www.cnblogs.com/yueli/p/7486043.html
 
 ### Mosquitto 高级应用之SSL/TLS ###
 
-准本工作： 一台 Linux 服务器、 安装好 openssl
-
-
-
-
+准本工作： 一台 Linux 服务器、 安装好 openssl：
+https://www.cnblogs.com/yueli/p/7490453.html
 
 ## 代码使用 ##
 **相关代码功能介绍**
 **eclipse.paho**
-http://www.eclipse.org/paho/downloads.php
+> http://www.eclipse.org/paho/downloads.php
+
+### MQTT C Client for Posix and Windows： ###
+
+web 参考：
+> https://blog.csdn.net/weixin_37139197/article/details/78934961
+
+### Embedded MQTT C/C++ Client Libraries： 缺少必要功能，最关键没有重连机制 ###
+
+web 参考：
+> https://blog.csdn.net/rambomatrix/article/details/62892151
+> https://blog.csdn.net/rambomatrix/article/details/64906310
+
+- MQTTPacket : 该文件夹下包括了底层的C代码，提供基本的简单的解析数据，以及将数据串行化的功能。是其他两个上层接口的基础，也可以单独使用。
+- MQTTClient ：该文件夹下提供C++的上层接口，现在提供Linux, Arduino和mbed的实现。
+- MQTTClient-C：该文件夹下提供C的上层接口，针对那些不支持C++编程的平台。
 
 
 ## Desktop tools ##
@@ -140,8 +152,21 @@ http://mqttfx.org/
 https://www.alibabacloud.com/help/zh/doc-detail/86706.htm
 
 
+## MQTT-SN ##
 
+MQTT-SN 协议是 MQTT 的直系亲属，它使用 UDP 进行通信，标准的端口是1884。
 
+### MQTT-SN 和 MQTT 的区别 ###
+
+MQTT-SN 的信令和 MQTT 大部分都相同，比如都有 Will, 都有 Connect/Subscribe/Publish 命令.
+
+MQTT-SN 最大的不同是，Topic 使用 TopicId 来代替，而 TopicId 是一个16比特的数字。每一个数字对应一个 Topic, 设备和云端需要使用 REGISTER 命令映射 TopicId 和 Topic 的对应关系。
+
+MQTT-SN 可以随时更改 Will 的内容, 甚至可以取消. 而 MQTT 只允许在 CONNECT 时设定 Will 的内容, 而且不允许更改.
+
+MQTT-SN 的网络中有网关这种设备，它负责把 MQTT-SN 转换成 MQTT，和云端的 MQTT Broker 通信. MQTT-SN 的协议支持自动发现网关的功能。
+
+MQTT-SN 还支持设备的睡眠功能，如果设备进入睡眠状态，无法接收 UDP 数据，网关将把下行的 PUBLISH 消息缓存起来，直到设备苏醒后再传送。
 
 
 
