@@ -1,8 +1,12 @@
 # CMAKE #
-------
+
+## web ##
+
+https://cmake.org/cmake/help/v3.4/manual/cmake-buildsystem.7.html#cmake-buildsystem-7
+
 ## BASE ##
-    https://www.cnblogs.com/rickyk/p/3875334.html
-    https://www.cnblogs.com/lidabo/p/3976947.html
+https://www.cnblogs.com/rickyk/p/3875334.html
+https://www.cnblogs.com/lidabo/p/3976947.html
 
 
 **CMakeLists.txt**
