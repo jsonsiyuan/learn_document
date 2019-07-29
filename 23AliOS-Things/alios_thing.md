@@ -44,3 +44,20 @@ AliOS-Things\build\build_rules\aos_target_config.mk
 ## 取巧的方法 ##
 
 **设备状态改变（例如从sta模式到配网模式）。通过重启，重新开始来避免一些逻辑**
+
+## alios mqtt 的做法##
+
+- 还是会使用一个线程进行异步使用。
+- **使用list进行大量异步管理**
+
+		void *thread_yield(void *pclient)
+		{
+		    while (g_thread_yield_running) {
+		        IOT_MQTT_Yield(pclient, 200);
+		
+		        HAL_SleepMs(200);
+		    }
+		
+		    return NULL;
+		}
+
