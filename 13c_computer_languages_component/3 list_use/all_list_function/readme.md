@@ -1,8 +1,9 @@
-
 # Simple doubly linked list implementation. #
 
     include/linux/list.h
 
+## test ##
+gcc main.c device_manager.c -o test
 ## 初始化 ##
 
 - 静态初始化
@@ -40,16 +41,7 @@
     	(type *)( (char *)__mptr - offsetof(type,member) );})
 
 
-## list_lru##
 
-一个具体的例子
-
-    struct page 
-    {
-    ....
-    	struct list_head lru;
-    ....
-    }
     
 
 

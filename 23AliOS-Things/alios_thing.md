@@ -67,7 +67,8 @@ AliOS-Things\build\build_rules\aos_target_config.mk
 PATH：
 
 	AliOS-Things\middleware\linkkit\sdk-c\src\protocol\mqtt\client
-
+key function:
+	IOT_MQTT_Yield
 API:
 
 	MQTTConnect

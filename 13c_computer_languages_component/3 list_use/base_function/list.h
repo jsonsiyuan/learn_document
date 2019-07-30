@@ -6,7 +6,7 @@ extern "C"
 {
 #endif
 
-//链表结构
+/*链表结构*/
 struct list_head {
 	struct list_head *next;
 	struct list_head *prev;
@@ -14,7 +14,7 @@ struct list_head {
 
 typedef struct list_head LHead;
 
-//初始化链表头
+/*初始化链表头*/
 #define INIT_LIST_HEAD(head) do {			\
 		(head)->next = (head)->prev = head;	\
 	} while (0)
@@ -28,20 +28,20 @@ typedef struct list_head LHead;
 
 
 
-//添加节点到链表，从头添加
+/*添加节点到链表，从头添加*/
 void list_add (struct list_head *_new, struct list_head *head);
 
-//从尾部添加设备节点到链表
+/*从尾部添加设备节点到链表*/
 void list_add_tail (struct list_head *_new, struct list_head *head);
 
-//从链表中删除节点
+/*从链表中删除节点*/
 void list_del (struct list_head *old);
 
-//判断链表是否为空
-//return 1:空 ，0;不为空
+/*判断链表是否为空
+return 1:空 ，0;不为空*/
 int list_empty (struct list_head *head);
 
-//获取链表中的设备数量
+/*获取链表中的设备数量*/
 int list_size(struct list_head *head);
 
 
