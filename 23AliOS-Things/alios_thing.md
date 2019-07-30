@@ -47,8 +47,9 @@ AliOS-Things\build\build_rules\aos_target_config.mk
 
 ## alios mqtt 的做法##
 
+- 对paho嵌入式c代码的分装
 - 还是会使用一个线程进行异步使用。
-- **使用list进行大量异步管理**
+- **使用list进行大量异步管理，使用消息id作为标识**
 
 		void *thread_yield(void *pclient)
 		{
@@ -61,3 +62,19 @@ AliOS-Things\build\build_rules\aos_target_config.mk
 		    return NULL;
 		}
 
+### 关键API ###
+
+PATH：
+
+	AliOS-Things\middleware\linkkit\sdk-c\src\protocol\mqtt\client
+
+API:
+
+	MQTTConnect
+	MQTTPublish
+	MQTTSubscribe
+	MQTTUnsubscribe
+	MQTTDisconnect
+	MQTTPuback
+	。。。
+	iotx_mc_get_next_packetid
