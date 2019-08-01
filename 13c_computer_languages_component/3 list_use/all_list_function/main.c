@@ -47,6 +47,26 @@ void main(void)
 	/**/
 	num_tmp=dev_man_get_devices_num(0);
 	printf("now list number is %d \r\n",num_tmp);
+	
+	NDevice outDev;
+	while(0==dev_man_get_Yield(0,&outDev))
+	{
+		printf("[0] is [%x] ",outDev.id[0]);
+		printf("[1] is [%x] ",outDev.id[1]);
+		printf("[2] is [%x] ",outDev.id[2]);
+		printf("[3] is [%x] ",outDev.id[3]);
+		printf("\r\n");
+	}
+	printf("______________________\r\n");
+	memset(&outDev,0,sizeof(NDevice));
+	while(0==dev_man_get_Yield(0,&outDev))
+	{
+		printf("[0] is [%x] ",outDev.id[0]);
+		printf("[1] is [%x] ",outDev.id[1]);
+		printf("[2] is [%x] ",outDev.id[2]);
+		printf("[3] is [%x] ",outDev.id[3]);
+		printf("\r\n");
+	}
 	/**/
 	memset(data_tmp.id,0,sizeof(data_tmp.id));
 	memcpy(data_tmp.id,array5,sizeof(data_tmp.id));

@@ -132,7 +132,38 @@ int dev_man_get_device_by_id(int index,unsigned char *id,NDevice *outDev)
 
 	return 0;
 }
+struct list_head *head_crcle=&_DevManCtx[0].head;
+int dev_man_get_Yield(int index,NDevice *outDev)
+{
+	DeviceNode *pDevNode = NULL;
+	struct list_head *pos;
+	
+	if (index >= num_of_list)return -1;
+	if (NULL == outDev)return -1;
+	if (!_DevManInited)return -1;
 
+	Lock_Lock(&_DevManCtx[index].lock);
+	list_for_each(pos,head_crcle)
+	{
+		pDevNode = (DeviceNode*)pos;
+		
+		{
+			head_crcle=pos;
+			break;
+			
+		}
+
+	}
+	Lock_ULock(&_DevManCtx[index].lock);
+	if (pos == &_DevManCtx[index].head)
+	{
+		head_crcle=pos;
+		return -1;
+	}
+	memcpy(outDev,&pDevNode->dev,sizeof(pDevNode->dev));
+
+	return 0;
+}
 int dev_man_del_by_id(int index,unsigned char *id)
 {
 	DeviceNode *pDevNode = NULL;
