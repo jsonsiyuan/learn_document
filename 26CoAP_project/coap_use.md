@@ -101,3 +101,20 @@
 #### 多播地址注册 ####
 
 IPv4  - “所有CoAP节点”地址224.0.1.187，来自“IPv4 多播地址空间注册表”。
+
+### libcoap 使用 ###
+
+- ./autogen.sh
+- ./configure
+- make
+- sudo make install 
+- ./coap-server
+- ./coap-client -m get -o result.txt coap://localhost
+
+
+
+**    安装完成之后，便会新建/usr/local/include/libcoap目录，并把coap.h config.h debug.h pdu.h等头文件复制到该目录中。另外，编译生成的libcoap.a该静态链接库被复制到了/usr/local/lib中。
+    同时，在编译完成之后，在example目录中会增加两个重要文件——coap-client和coap-server。**
+
+对于openssl的更新
+	https://blog.csdn.net/weixin_42037232/article/details/88838959
