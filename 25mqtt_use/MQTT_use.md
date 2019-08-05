@@ -78,8 +78,8 @@ demo:
 
 **报错./mosquitto_sub: error while loading shared libraries: libmosquitto.so.1: cannot open shared object file: No such file or directory**
 
-	sudo ln -s /usr/local/lib/libmosquitto.so.1 /usr/lib/libmosquitto.so.1
-	ldconfig
+	sudo ln -s /usr/local/lib/libmosquitto.so.1 /usr/lib/libmosquitto.so.1 #创建链接
+	sudo  ldconfig  #更新动态链接
 
 
 ##mosquitto.conf 详细讲解##
