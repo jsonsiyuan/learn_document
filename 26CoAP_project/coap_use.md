@@ -6,9 +6,6 @@
 	http://www.iana.org/assignments/core-parameters/core-parameters.xhtml
 ## libcoap  web: ##
 	https://libcoap.net/
-### api 网站： ###
-	https://libcoap.net/doc/reference/4.2.0/
-
 ### libcoap 使用参考网站： ###
 
 	https://segmentfault.com/a/1190000002511350
@@ -16,6 +13,8 @@
 	https://datatracker.ietf.org/doc/rfc7252/?include_text=1
 
 ## 实践操作 ##
+
+	https://www.cnblogs.com/tifnan2015/p/5363166.html
 ### 关键协议讲解 ###
 #### Message Format ####
 
@@ -102,7 +101,7 @@
 
 IPv4  - “所有CoAP节点”地址224.0.1.187，来自“IPv4 多播地址空间注册表”。
 
-### libcoap 使用 ###
+### libcoap 安装 ###
 
 - ./autogen.sh
 - ./configure
@@ -118,3 +117,12 @@ IPv4  - “所有CoAP节点”地址224.0.1.187，来自“IPv4 多播地址空�
 
 对于openssl的更新
 	https://blog.csdn.net/weixin_42037232/article/details/88838959
+
+### libcoap 使用 ###
+	./coap-server
+	./coap-client -m get coap://localhost
+
+### libcoap code ###
+
+	https://blog.csdn.net/yangkunhenry/article/details/80181294
+
