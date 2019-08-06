@@ -79,6 +79,7 @@ sections
 **无锁环形缓冲**
 
 	include/linux/kfifo.h
+	kernel/kfifo.c
 
 	
 

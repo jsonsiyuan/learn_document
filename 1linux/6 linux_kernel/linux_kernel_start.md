@@ -35,6 +35,8 @@ linux code is 抽象和分层。
 - 	安装内核模块  sudo make modules_install
 - 	安装到系统中  make install
 
+**在 boot 里有参考的config配置文件**
+
 ## 编译一个ARM镜像，并运行在QEMU ##
 
 	sudo apt-get install qemu libncurses5-dev gcc-arm-linux-gnueabi build-essential gcc-5-arm-linux-gnueabi git 
