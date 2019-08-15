@@ -99,8 +99,18 @@
 
 #### 多播地址注册 ####
 
-IPv4  - “所有CoAP节点”地址224.0.1.187，来自“IPv4 多播地址空间注册表”。
+> IPv4  - “所有CoAP节点”地址224.0.1.187，来自“IPv4 多播地址空间注册表”。
 
+#### Constrained RESTful Environments (CoRE) Link Format ####
+
+	https://tools.ietf.org/html/rfc6690#section-1
+
+> 众所周知的相对URI  “/ .well-known/ core” 被定义为用于请求关于由服务器托管的资源的链接列表并因此执行CoRE资源发现的默认入口点。
+
+
+
+
+-----
 ### libcoap 安装 ###
 
 - ./autogen.sh
