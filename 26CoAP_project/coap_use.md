@@ -107,7 +107,11 @@
 
 > 众所周知的相对URI  “/ .well-known/ core” 被定义为用于请求关于由服务器托管的资源的链接列表并因此执行CoRE资源发现的默认入口点。
 
+###  CoAP (Constrained Application Protocol) over TCP, TLS, and WebSockets ###
 
+	https://tools.ietf.org/html/rfc8323
+
+** Capabilities and Settings Messages (CSMs)**
 
 
 -----
