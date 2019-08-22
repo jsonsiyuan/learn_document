@@ -29,9 +29,11 @@
 #ifndef	_LINUX_RBTREE_H
 #define	_LINUX_RBTREE_H
 
-#include <linux/kernel.h>
-#include <linux/stddef.h>
-#include <linux/rcupdate.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+
 
 struct rb_node {
 	unsigned long  __rb_parent_color;
@@ -43,6 +45,23 @@ struct rb_node {
 struct rb_root {
 	struct rb_node *rb_node;
 };
+
+
+/**self***/
+#define RB_RED 0
+
+#define RB_BLACK 1
+
+#define offsetof(TYPE, MEMBER) ((size_t) &((TYPE *)0)->MEMBER)
+
+#define container_of(ptr, type, member) ({ const typeof( ((type *)0)->member ) *__mptr = (ptr);    (type *)( (char *)__mptr - offsetof(type,member) );})
+
+#define WRITE_ONCE(var, val)  (*((volatile typeof(val) *)(&(var))) = (val))
+#define rcu_assign_pointer(p,v)        ({ (p)= (v); })
+
+#define likely(x) __builtin_expect(!!(x), 1)
+#define unlikely(x) __builtin_expect(!!(x), 0)
+
 
 /*
  * Leftmost-cached rbtrees.
@@ -58,6 +77,7 @@ struct rb_root_cached {
 	struct rb_root rb_root;
 	struct rb_node *rb_leftmost;
 };
+
 
 #define rb_parent(r)   ((struct rb_node *)((r)->__rb_parent_color & ~3))
 
