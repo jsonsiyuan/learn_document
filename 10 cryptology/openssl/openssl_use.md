@@ -1,110 +1,26 @@
-# openssl 使用 #
+# OPENSSL USE #
 
+## 对称加密实践 ##
 
-## Key and Certificate Management ##
+**对称加密主要使用enc 子命令**
 
-1. generate a strong private key
-2. create a Certificate Signing Request (CSR) and send it to a CA, and
-3. install the CA-provided certificate in your web server
+	openssl list -cipher-algorithms 显示系统支持的加密算法
 
-### Key Generation ###
+	openssl enc-aes-128-cbc -in e.txt -out m.txt -iv E9EDACA1BD7090C6 -K 89D4B1678D604FAA3DBFFD030A314B29
 
-**RSA**
-To generate an RSA key, use the genrsa command:
+	openssl enc -ase-128-cbc -in m.txt -d -iv E9EDACA1BD7090C6 -K 89D4B1678D604FAA3DBFFD030A314B29
 
-		openssl genrsa -aes128 -out fd.key 2048
+	openssl enc --help enc 查看帮助
 
-You can see a key’s structure using the following rsa command:
+## MAC(Message Authentication Code) 实践##
 
-	openssl rsa -text -in fd.key
-
-you need to have just the public part of a key separately
-
-	openssl rsa -in fd.key -pubout -out fd-public.key
-
-**DSA**
-DSA key generation
-
-	openssl dsaparam -genkey 2048 | openssl dsa -out dsa.key -aes128
-
-
-**椭圆积分曲线**
-
-	openssl ecparam -genkey -name secp256r1 | openssl ec -out ec.key -aes128
-
-
-### Creating Certificate Signing Requests ###
-
-
-- Creating Certificate Signing Requests 
-
-	openssl req -new -key fd.key -out fd.csr
-
-- double-check that the CSR is correct
+**MAC使用最多是HMAC**
 	
-	openssl req -text -in fd.csr -noout
-
-- Creating CSRs from Existing Certificates
+	openssl dgst 主要用于数据摘要
 	
-	openssl x509 -x509toreq -in fd.crt -out fd.csr -signkey fd.key
+	1openssl dgst -sha1 file.txt 对file.txt 通过SHA-1 算法计算摘要值。
 
-- Unattended CSR Generation
+	openssl sha1 -out digest.txt file.txt
 
-**We would start by creating a file fd.cnf**
+	openssl dgst -sha1 -hmac "mykey" file.txt
 
-	openssl req -new -config fd.cnf -key fd.key -out fd.csr
-
-- Signing Your Own Certificates
-
-**If you’re installing a TLS server for your own use, you probably don’t want to go to a CA for
-a publicly trusted certificate**
-**If you already have a CSR, create a certificate using the following command**
-
-	openssl x509 -req -days 365 -in fd.csr -signkey fd.key -out fd.crt
-
-**You don’t actually have to create a CSR in a separate step. The following command creates a
-self-signed certificate starting with a key alone**
-
-	openssl req -new -x509 -days 365 -key fd.key -out fd.crt
-
-- Examining Certificates
-
-	openssl x509 -text -in fd.crt -noout
-
-### Key and Certificate Conversion ###
-
-- PEM and DER Conversion
-
-**To convert a certificate from PEM to DER format**
-
-	openssl x509 -inform PEM -in fd.pem -outform DER -out fd.der
-
-**To convert a certificate from DER to PEM format**
-
-	openssl x509 -inform DER -in fd.der -outform PEM -out fd.pem
-
-**PKCS#12 (PFX) Conversion**
-
-	openssl pkcs12 -export -name "My Certificate" -out fd.p12 -inkey fd.key \
-	-in fd.crt \
-	-certfile fd-chain.crt
-
-	openssl pkcs12 -in fd.p12 -out fd.pem -nodes
-	
-**PKCS#7 Conversion**
-
-	openssl crl2pkcs7 -nocrl -out fd.p7b -certfile fd.crt -certfile fd-chain.crt
-
-	openssl pkcs7 -in fd.p7b -print_certs -out fd.pem
-
-### Cipher Suite Selection ###
-
-	openssl ciphers -v 'ALL:COMPLEMENTOFALL'
-
-**For example, you can ask it to list only
-cipher suites that are based on RC4, as follows**
-
-	openssl ciphers -v 'RC4'
-
-
-	
