@@ -79,3 +79,12 @@ API:
 	MQTTPuback
 	。。。
 	iotx_mc_get_next_packetid
+
+
+## 进入临界区 ##
+
+	#include "k_api.h"
+	CPSR_ALLOC();
+	RHINO_CRITICAL_ENTER();
+    /*内核临界区*/
+	RHINO_CRITICAL_EXIT();
