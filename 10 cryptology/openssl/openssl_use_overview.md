@@ -116,7 +116,13 @@ ECC 和DH算法进行结合。
 	openssl dgst -sha256 -verify ecdsa_pub.pem -signature signature.txt plain.txt #签名验证
 
 
+## 密码套件 ##
 
+	openssl cipgers -V | column -t #查看支持的密码套件
+
+## 自建证书 ##
+
+	openssl x509 。。。
 
 	
 

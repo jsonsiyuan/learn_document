@@ -13,3 +13,11 @@
 **一个c库**
 
 	https://avsystem.github.io/Anjay-doc/
+
+## 核心流程 ##
+
+- Bootstrap
+- Client Registration
+- Device Management and Service Enablement
+- Information Reporting
+
