@@ -24,6 +24,8 @@
 
 ### Bootstrap ###
 
+The Bootstrap Interface is used to provision essential information into the LwM2M Client to enable the LwM2M Client to perform the "Register" operation with one or more LwM2M Servers.
+
 #### Factory Bootstrap ####
 #### Bootstrap from Smartcard ####
 #### Client Initiated Bootstrap ####
@@ -37,5 +39,25 @@
 Server 可以让client 发起 Client Initiated Bootstrap
 
 note：Objects and Object Instances
+
+### Client Registration Interface ###
+
+The Client Registration Interface is used by a LwM2M Client to register with one or more LwM2M Servers, maintain each registration, and de-register from a LwM2M Server. The registration is based on the Resource Model and Identifiers.
+
+### Device Management and Service Enablement Interface ###
+
+具体的数据交互
+
+
+## Identifiers and Resources ##
+
+This section defines the identifiers and resource model for the LwM2M Enabler
+
+## Access Control ##
+
+When a LwM2M Client interacts with multiple LwM2M Servers there is a need to determine which operation on a certain
+Object or Object Instance is authorized for which LwM2M Server. The Access Control Object has been designed to offer this access management capability.
+
+
 
 
