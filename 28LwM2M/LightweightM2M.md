@@ -59,5 +59,10 @@ When a LwM2M Client interacts with multiple LwM2M Servers there is a need to det
 Object or Object Instance is authorized for which LwM2M Server. The Access Control Object has been designed to offer this access management capability.
 
 
+## 总结 ##
+
+对于资源很紧张的设备，可能适合，因为设备端需要做服务器来适配协议
+
+
 
 
