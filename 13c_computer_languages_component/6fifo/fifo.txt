@@ -1,0 +1,91 @@
+#include <stdint.h>
+#include <stdio.h>
+#define FIFO_QUEUE_MAXQSIZE 5
+static uint8_t fifo_queue[FIFO_QUEUE_MAXQSIZE]={0};
+static int fifo_queue_front =0;
+static int fifo_queue_rear=0;
+
+
+
+static void dooya_uart_fifo_init(void)
+{
+	memset(fifo_queue,0,sizeof(fifo_queue));
+	fifo_queue_front=0;
+	fifo_queue_rear=0;
+}
+
+static int dooya_uart_fifo_content_length(void)
+{
+	return (FIFO_QUEUE_MAXQSIZE+fifo_queue_rear - fifo_queue_front ) % FIFO_QUEUE_MAXQSIZE;
+
+}
+
+static void dooya_uart_fifo_enqueue(uint8_t *data, uint32_t len)
+{
+	int i;
+	for(i=0;i<len;i++)
+	{
+		memcpy(fifo_queue+fifo_queue_rear,data+i,1);
+		fifo_queue_rear = (fifo_queue_rear + 1) % FIFO_QUEUE_MAXQSIZE;
+	}
+
+
+}
+static int dooya_uart_fifo_dnqueue(uint8_t *data, uint32_t len)
+{
+	int i;
+	if(dooya_uart_fifo_content_length()<len)
+	{
+		return 1;
+	}
+	else
+	{
+		for(i=0;i<len;i++)
+		{
+			memcpy(data+i,fifo_queue+fifo_queue_front,1);
+			fifo_queue_front = (fifo_queue_front + 1) % FIFO_QUEUE_MAXQSIZE;
+		}
+
+		return 0;
+	}
+	
+
+}
+
+
+void main (void )
+{
+    uint8_t uart_data_buf[10];
+	printf("start\r\n");
+	dooya_uart_fifo_init();
+	dooya_uart_fifo_enqueue("1234", 4);
+	printf("len is {%d}\r\n",dooya_uart_fifo_content_length());
+
+	printf("data is [%x]\r\n",fifo_queue[0]);
+	printf("data is [%x]\r\n",fifo_queue[1]);
+	printf("data is [%x]\r\n",fifo_queue[2]);
+	printf("data is [%x]\r\n",fifo_queue[3]);
+	printf("data is [%x]\r\n",fifo_queue[4]);
+	printf("data #########\r\n");
+	dooya_uart_fifo_dnqueue(uart_data_buf, 4);
+	printf("len is {%d}\r\n",dooya_uart_fifo_content_length());
+
+	dooya_uart_fifo_enqueue("567", 3);
+	printf("len is {%d}\r\n",dooya_uart_fifo_content_length());
+
+	dooya_uart_fifo_dnqueue(uart_data_buf, 3);
+	printf("len is {%d}\r\n",dooya_uart_fifo_content_length());
+	
+	printf("data is [%x]\r\n",fifo_queue[0]);
+	printf("data is [%x]\r\n",fifo_queue[1]);
+	printf("data is [%x]\r\n",fifo_queue[2]);
+	printf("data is [%x]\r\n",fifo_queue[3]);
+	printf("data is [%x]\r\n",fifo_queue[4]);
+	printf("data #########\r\n");
+	dooya_uart_fifo_enqueue("321321", 6);
+	printf("data is [%x]\r\n",fifo_queue[0]);
+	printf("data is [%x]\r\n",fifo_queue[1]);
+	printf("data is [%x]\r\n",fifo_queue[2]);
+	printf("data is [%x]\r\n",fifo_queue[3]);
+	printf("data is [%x]\r\n",fifo_queue[4]);
+}
