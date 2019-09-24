@@ -3,11 +3,14 @@
 ## 服务器 ##
 
 web：
+
 	http://www.mosquitto.org/
 tool:
+
 	https://github.com/mqtt/mqtt.github.io/wiki/software?id=software
 	
 博客
+
 	https://lanseyujie.com/post/mosquitto-installation-and-usage.html
 	https://www.cnblogs.com/chen1-kerr/p/7258487.html
 	https://www.cnblogs.com/yueli/category/1072998.html
@@ -70,6 +73,7 @@ make 遇到问题，需要安装一些东西
 	-m	发布的消息内容
 ---
 demo:
+
 	mosquitto_sub -v -t testtopic
 	mosquitto_pub -t testtopic -m "Hello World"
 
