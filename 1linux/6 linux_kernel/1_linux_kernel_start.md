@@ -168,26 +168,35 @@ web：
 	sudo apt-get install bison
 /bin/sh: 1: flex: not found
 	sudo apt-get install flex
-内核配置：
 
-    GENERAL SETUP [*]Inital RAM filesystem ....(_install)...
+
+#### 内核配置： ####
+
+    GENERAL SETUP--->
+	 [*]Inital RAM filesystem and RAM disk 
+	(_install) Initramfs source file(s) 
     
-    boot options--()default kernel ....
+    boot options-->
+	()default kernel ....#清空 D额faultkernelcommand string
     
-    kernel features-->memory split 3g/1g
+    kernel features-->
+	memory split 3g/1g
 	[*]high memory ...
 
-开始编译：
+#### 开始编译： ####
+
     make bzImage -j4 ARCH=arm CROSS_COMPILE=arm-linux-gnueabi-
     make dtbs   #制作设备树
 
 
 ### 运行QEMU ###
     
-demo：
+#### demo1： ####
 
     qemu-system-arm -M vexpress-a9 -smp 4 -m 200M -kernel arch/arm/boot/zImage -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic -append "rdinit=/linuxrc console=ttyAMA0 loglevel=8 " 
 
+####################################
+#### demo2：扩展 ####
 	sudo mkdir -p /tmp/sun_test
 
 	qemu-system-arm -M vexpress-a9 -smp 4 -m 100M -kernel arch/arm/boot/zImage -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic -append "rdinit=/linuxrc console=ttyAMA0 loglevel=8 slub_debug kmemleak=on" --fsdev local,id=kmod_dev,path=/tmp/sun_test,security_model=none -device virtio-9p-device,fsdev=kmod_dev,mount_tag=kmod_mount 
