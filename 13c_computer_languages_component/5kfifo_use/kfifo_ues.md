@@ -6,3 +6,9 @@ kfifo是Linux内核一个通用的队列实现。
 ## web ##
 	https://blog.csdn.net/alice_ice/article/details/14104889
 	https://www.linuxidc.com/Linux/2016-12/137936.htm
+
+## key API ##
+
+	#defien DEFINE_KFIFO(fifo,type,size)
+	#define kfifo_from_user(fifo,from,len,copied)
+	#define kfifo_to_user(fifo,to,len,copied)
