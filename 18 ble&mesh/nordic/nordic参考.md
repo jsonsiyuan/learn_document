@@ -15,9 +15,14 @@
 	
 	https://blog.csdn.net/bht890811/article/details/90633865
 
+### app层建立的原则 ###
+
+  找到最相近的demo，作为app的基础。并放到合适的位置，并**修改路径寻找**
+
+
 ## nordic 扩充  ##
 
-nordic 加入的一个RTOS 项目
+nordic 加入的一个RTOS 项目 一个很新的东西，针对蓝牙硬件的
 
 	https://www.zephyrproject.org/developers/
 	https://docs.zephyrproject.org/latest/
