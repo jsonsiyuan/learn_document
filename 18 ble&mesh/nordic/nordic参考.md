@@ -1,6 +1,20 @@
 ## nordic ble 使用  ##
+官方网站
 
+	https://www.nordicsemi.com/
 
+官方开发版介绍
+
+| 文件夹名 |平台|
+| :---: |:---:|
+| pca10040e |官方52810|
+| pca10040 |官方52832|
+| pca10056 |官方52840|
+| pca10059 |官方52810 dongle|
+
+好的博客
+
+	https://www.cnblogs.com/iini
 ## nordic环境搭建及初次使用 ##
 ### 相关web参考 ###
 
