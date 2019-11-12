@@ -9,6 +9,9 @@
 **官方3.0介绍**
 
 	https://zigbee.org/zigbee-for-developers/zigbee-3-0/
+**不错的博客**
+
+	https://blog.csdn.net/jason_lm/article/category/7772109
 ## zigbee overview ##
 ### 主要参考文件 ###
 	Webinar_ZigBee_3-0_Launch_FINAL
@@ -19,6 +22,7 @@
 ![avatar](./picture/12.png)
 ![avatar](./picture/13.png)
 ![avatar](./picture/14.png)
+
 **demo**
 ![avatar](./picture/15.png)
 **ZigBee Device Object**
@@ -43,6 +47,7 @@ zigbee3.0主要的特性，相对其他协议的主要升级
 
 ### 主要参考文件 ###
 	04 2017 Interoperability ORIGINAL White Paper Final Musa and Shashank final_cn (2)
+
 
 ## Zigbee 的新设备类型 Green Power##
 
