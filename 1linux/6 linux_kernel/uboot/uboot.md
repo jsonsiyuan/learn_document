@@ -1,4 +1,5 @@
 # uboot #
+![avatar](./picture/3.jpg)
 ## 参考博客 ##
 
 	https://blog.csdn.net/wangweijundeqq/category_7416245.html
