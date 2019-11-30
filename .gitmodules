@@ -1,0 +1,3 @@
+[submodule "1linux/6 linux_kernel/LKDemo"]
+	path = 1linux/6 linux_kernel/LKDemo
+	url = https://github.com/aggresss/LKDemo.git
