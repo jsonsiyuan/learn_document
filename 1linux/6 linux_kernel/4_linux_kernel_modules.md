@@ -223,8 +223,16 @@ linux 可以通过内核模块实现动态添加和删除某个功能。
 
 
 #note：使用其他平台，编译器需要适配
+如果想编译在模拟开发板上运行的模块，就需要采用另一种方法，利用Linux 源文件根目录下Makefile 的 SUBDIRS 参数，下面来说明一下操作步骤：
 
+1. 进入到已经编译生成Linux源文件根目录下 例如： linux-4.1.38，前提是已经利用这个目录编译生成过内核目标文件 ；
+2. 执行 
+export ARCH=arm
+export CROSS_COMPILE=arm-linux-gnueabi-
+make modules SUBDIRS= xxxx/hello_module    （xxxx为需要编译的模块所在目录）
 
+**NOTE:**
+在目标开发板上执行  rmmod 时会提示 rmmod: can't change directory to '/lib/modules': No such file or directory这个错误，是由于没有 /lib/modules/4.1.38(内核版本号) 这个目录导致的，在目标开发板上建立一下这个目录即可，是空目录，不需要任何文件。
 
 
 

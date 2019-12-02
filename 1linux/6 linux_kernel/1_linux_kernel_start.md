@@ -195,36 +195,38 @@ web：
 
     qemu-system-arm -M vexpress-a9 -smp 4 -m 200M -kernel arch/arm/boot/zImage -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic -append "rdinit=/linuxrc console=ttyAMA0 loglevel=8 " 
 
-####################################
-#### demo2：扩展 ####
-	sudo mkdir -p /tmp/sun_test
 
-	qemu-system-arm -M vexpress-a9 -smp 4 -m 100M -kernel arch/arm/boot/zImage -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic -append "rdinit=/linuxrc console=ttyAMA0 loglevel=8 slub_debug kmemleak=on" --fsdev local,id=kmod_dev,path=/tmp/sun_test,security_model=none -device virtio-9p-device,fsdev=kmod_dev,mount_tag=kmod_mount 
+### 在QEMU虚拟开发板与主机之间文件共享的方法 ###
 
-	mount -t 9p -o trans=virtio kmod_mount /mnt
+NOTE:NFS 相关文件
+	https://blog.csdn.net/jin970505/article/details/78847028
+#### Linux中tun/tap ####
+  tun/tap 驱动程序实现了虚拟网卡的功能，tun表示虚拟的是点对点设备，tap表示虚拟的是以太网设备
 
+- sudo apt-get install uml-utilities    （User-Mode Linux，使用它创建TAP）
+- sudo apt-get install bridge-utils    （如果需要创建bridge可以选择安装）
+- 安装完成后，执行  sudo tunctl -u root -t tap30  就可以在主机上创建一个网络设备，这是使用 ifconfig -a 命令可以看到名字为tap30的网络设备。
+- 执行 ifconfig tap30 192.168.111.1 promisc up 配置网卡IP地址，并且以混杂模式启用。
+- 主机的网络配置已经完成，接下来开始配置虚拟机，QEMU通过 -net 参数指定网络配置 net nic  net tap  net user 一般nic必须有，tap和user选一个使用
 
-### 扩展 ###
+demo：
+	qemu-system-arm -M vexpress-a9 -smp 4 -m 200M -kernel arch/arm/boot/zImage -net nic,vlan=0 -net tap,vlan=0,ifname=tap30,script=no,downscript=no -dtb arch/arm/boot/dts/vexpress-v2p-ca9.dtb -nographic -append "rdinit=/linuxrc console=ttyAMA0 loglevel=8 "
 
-** 在_install/etc/inittab**
+启动后在目标开发板中执行  ifconfig -a 就能看到 eth0 的网络接口
+在模拟开发板中执行  ifconfig eth0 192.168.111.2 promisc up
 
-    respawn： 表示init应该监视这个进程，即使其结束后也应该被重新启动。
-    wait：    init应该运行这个进程一次，并等待其结束后再进行下一步操作。
-    once：    init需要运行这个进程一次。
-    boot：    随系统启动运行，所以runlevel值对其无效。
-    bootwait：随系统启动运行，并且init应该等待其结束。
-    off：     没有任何意义。
-    initdefault：系统启动后的默认运行级别；由于进入相应的运行级别会激活对应级别的进程，所以对其指定process字段没有任何意义。如果inittab文件内不存在这一条记录，系统启动时在控制台上询问进入的运行级。
-    sysinit：    系统启动时准备运行的命令。比如说，这个命令将清除/tmp.可以查看/etc/rc.d/rc.sysinit脚本了解其运行了那些操作。
-    powerwait：  允许init在电源被切断时，关闭系统。当然前提是有U P S和监视U P S并通知init电源已被切断的软件。RH linux默认没有列出该选项。
-    powerfail：  同powerwait，但init不会等待正在运行的进程结束。RH linux默认没有列出该选项。
-    powerokwait：当电源监视软件报告“电源恢复”时，init要执行的操作。
-    powerfailnow：检测到ups电源即将耗尽时，init要执行的操作，和powerwait/powerfail不同的哟。
-    ctrlaltdel：允许init在用户于控制台键盘上按下C t r l + A l t + D e l组合键时，重新启动系统。注意，如果该系统放在一个公共场所，系统管理员可将C t r l + A l t + D e l组合键配置为别的行为，比如忽略等。我是设置成打印一句骂人的话了^o^. kbrequest：监视到特定的键盘组合键被按下时采取的动作，现在还不完善。
-    ondemand：  A process marked with an ondemand runlevel will be executed whenever the specified ondemand runlevel is called.  However， no runlevel change will occur （ondemand runlevels are ‘a’， ‘b’，and ‘c’）
+#### 开始配置并启用NFS服务 ####
+**在主机中**
+- 输入  sudo apt-get install nfs-kernel-server
+- NFS服务的配置文件为 /etc/exports ，一个NFS服务可以共享多个NFS目录，在/etc/exports文件中，每个目录的设置独占一行，我要把 /share 目录共享给目标开发板，就在配置文件中加入一行：/share    192.168.111.2(rw,sync,no_root_squash,no_subtree_check)
+- 保存配置文件并退出，执行 sudo service nfs-kernel-server start 启动NFS 服务
+- 可以在主机上运行 showmount -e 来查看NFS服务和配置是否启动正常。
 
+**模拟开发板**
+ mkdir -p /mnt/nfs
+ mount -t nfs -o nolock 192.168.111.1:/share /mnt/nfs
 
-- 
+挂载成功后进入目标开发板的 /mnt/nfs 目录便可以将主机的 /share 文件夹作为本地文件夹来操作，这样会很大的提高应用程序的调试运行效率。
 
 
 
