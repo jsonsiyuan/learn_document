@@ -32,6 +32,8 @@ Client Key Exchange 子消息
 Change Cipher Spec 协议
 finished 子消息
 
+![avatar](./picture/1.png)
+
 ### 握手协议（sub） ###
 
 握手协议主要工作就是客户端和服务端协商出双方都认可的密码套件。一般要经历过两个来回才能完成沟通和协商。
