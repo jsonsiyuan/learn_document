@@ -1,1 +1,8 @@
+官方微博
 https://blog.csdn.net/espressif/article/details/79316992
+esp8266学习文档
+https://blog.csdn.net/xh870189248/article/details/88537666
+
+esp8266 环境建立
+https://docs.espressif.com/projects/esp8266-rtos-sdk/en/latest/
+

@@ -1,5 +1,9 @@
 # ALIOS-THING 使用笔记 （V2.1.0） #
 
+## 一个环境搭建的demo ##
+esp8266 阿里云测试
+https://blog.csdn.net/lan120576664/article/details/80197396
+https://blog.csdn.net/xh870189248/article/details/82692224
 ## API 参考文档 ##
 
 > https://github.com/alibaba/AliOS-Things/wiki/AliOS-Things-API-YLOOP-Guide
