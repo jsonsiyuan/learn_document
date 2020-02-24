@@ -1,0 +1,57 @@
+1. Network key Security
+
+这是Zigbee网络层的加密安全，在这种Zigbee网络中，所有的节点都配置相同的network key，所有的节点都用这个network key加密和解密网络中的所有报文。
+网络层安全是Zigbee网络的强制配置选项，在最新的Zigbee3.0中，启动了网络层安全，同时也会使能many-to-one的路由指向Trust Center, Trust Center也变成了整个网络的中枢节点。
+
+网络层安全对应两种密钥
+
+Pre-configured Network Key
+这种密钥预配置在网络中的各个节点，包括Trust Center，这个Key可以用来快速加密和解密网络通信，且不需要在空中传递这个key，只要厂家能够安全保管这个key，此种加密方式安全等级还是相对比较高。
+
+Default Network key
+这种密钥初始配置在trust center中，可以随机产生或预先生成好。
+
+当有设备入网时，如果和Coordinator直连，可以直接向Trust Cener索要network key，Trust Center将Network Key以未加密的方式发送给加入设备。如果是通过父设备加入网络，父设备需要代表这个设备向Trust Center索要这个Network Key。Trust Center将Network Key先以加密方式传给父设备，然后父设备再以未加密方式传给这个设备。
+
+这种key在传递时没有加密，且暴露在空中，容易被捕获，安全等级不高。
+
+在恩智浦的Zigbee HA/3.0 SDK中关于Network Key的配置，可以调用函数ZPS_vAplSecSetInitialSecurityState()，函数中的ZPS_teZdoNwkKeyState枚举变量可以指定为ZPS_ZDO_PRECONFIGURED_NETWORK_KEY /  ZPS_ZDO_DEFAULT_NETWORK_KEY。
+
+
+2. Link Key Security
+
+这种安全模式在之前Network Security的基础上，增强了密钥分发过程的安全。即Trust Center在发送network key之前，先用Link Key加密一下，再将加密后的数据发送给新加入的节点。
+
+新加入的节点使用相同的link key解密这段数据，从而获取Network Key。
+
+这种安全模式也对应两种安全密钥。
+Pre-configured Global Link Key
+每一个节点，包括Trust Center，都配置相同的Pre-configured Global Link Key。Trust Center在形成网络的时候，会随机产生一个Network Key。当一个新节点加入网络时，Trust Center先用Pre-configured  Global  link key加密这个Network Key，然后将加密后的数据传给新加入的节点。
+
+新加入的节点用预配置的Pre-configured  Global Link Key解密传过来的加密数据，从而得到Network Key。从而实现新加入节点的密钥获取过程。
+
+这种加解密方式是目前Zigbee HA网络里默认的加密方式，每个节点都配置了相同的Link Key。所以如果入侵者知道这个Link Key，就可以很容易获取当前网络的Network Key，所以Zigbee HA在某种程度上并不安全。
+
+Pre-configured Unique Link Key
+这个Link Key和上面的Pre-configured Global Link Key相似，但Global换成了Unique，意思也显而易见，即每一个节点(Trust Center节点除外)都会配置一个不同的Pre-configured Link Key，同时和该节点的MAC地址一起，也会预先配置到网络中的Trust Center节点上，即Trust Center要预先知道所有要加入设备的Mac地址，和对应的Pre-configured Link Key。
+
+Trust Center产生一个随机的Network Key，当有新节点加入网络时，Trust Center根据设备的MAC地址，查找其对应的Pre-configured Link Key，然后用这个Pre-configured Link Key加密Network Key，再将加密后的数据发送给新加入节点，从而完成新加入节点的密钥获取过程。这种加密方式是网络层加密中安全等级最高。
+
+在恩智浦的Zigbee HA/3.0 SDK中关于Link Key的配置，可以调用函数ZPS_vAplSecSetInitialSecurityState()，参数ZPS_teZdoNwkKeyState指定为ZPS_ZDO_PRECONFIGURED_LINK_KEY，ZPS_teApsLinkKeyType指定为ZPS_APS_UNIQUE_LINK_KEY / ZPS_APS_GLOBAL_LINK_KEY。
+
+
+3. Certificate-Based Key Establishment
+
+这种安全模式与Link Key Security中的Pre-configured Unique Link Key很像，区别是Unique Key的产生是基于证书的，叫做Certificate-Based Key Establishment(CBKE)。
+这种安全模式通常应用在Smart Energy Profile中，对于安全有很高的要求。每一个设备里都要储存一个权威机构(Certicom)颁发的证书，这个证书用来产生公共密钥和其他安全元素。CBKE提供了一种更为安全的机制，保证设备安全的识别和入网。一个密钥的建立过程包含下面4个步骤：
+交换证书和临时数据
+产生密钥
+派生出消息验证码(MAC)密钥和密钥数据。
+确保密钥有使用MAC
+
+对于第二和第三步，密钥建立过程分别使用Eliptic Curve Menezes-Qu-Vanstone(ECMQV)密钥协商方案和密钥推导函数。在过程的最后，就像Pre-configured Unique Link Key描述的那样，Trust Center和要加入的设备使用这个Unique Key来交换数据。
+
+在恩智浦的Zigbee PRO中提供完整的SDK，支持Zigbee Smart Energy Profile，其中的Key Establishment Cluster负责密钥的建立过程，在初始化时，证书、公钥和私钥用函数eSE_KECLoadKeys注册在Key Establishment Cluster中。
+
+   eSE_KECLoadKeys(LOCAL_EP, au8CAPublicKey,
+                             au8Certificate, au8PrivateKey);
