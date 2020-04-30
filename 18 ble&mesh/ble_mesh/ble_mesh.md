@@ -2,7 +2,9 @@
 
 
 参考网站：
+
 	https://blog.csdn.net/zhanghuaishu0/article/details/78770486
+
 ## 名称解释 ##
 ### Devices and Nodes ###
 
@@ -174,5 +176,21 @@ p133
 
 ## 天猫蓝牙 ##
 参考网站：
-	https://developer.aliyun.com/group/genieaiot?spm=a2c6h.12873639.0.d1002.d0684e15whpN8G#/?_k=utioir
 
+	https://developer.aliyun.com/group/genieaiot?spm=a2c6h.12873639.0.d1002.d0684e15whpN8G#/?_k=utioir
+![avatar](./pic/27.png)
+
+## GATT广播和mesh广播 ##
+### gatt广播的参考code ###
+	https://www.cnblogs.com/aikm/p/5022502.html
+	https://www.aligenie.com/doc/357554/gtgprq
+	http://www.jsons.cn/sha/ 计算sha256
+![avatar](./pic/29.png)
+
+**百度项目**
+![avatar](./pic/baidu1.jpg)
+![avatar](./pic/baidu2.jpg)
+
+**slicicon**
+![avatar](./pic/silicon1.jpg)
+![avatar](./pic/silicon2.jpg)
