@@ -93,7 +93,8 @@ API:
     /*内核临界区*/
 	RHINO_CRITICAL_EXIT();
 
-
+## Gateway 使用机制 ##
+	https://code.aliyun.com/edward.yangx/public-docs/wikis/user-guide/linkkit/Archived/V230_Snapshot/programme/Gateway_Prog?spm=a2c4g.11186623.2.33.14831671HqOZU5
 ## 存在问题 ##
 
 - ESP8266 在2.1版本上，配网成功后，进行通知时，有小小概率出现异常，芯片停止工作（1/80）。使用看门狗解决
