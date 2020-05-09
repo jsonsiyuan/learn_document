@@ -8,6 +8,9 @@ https://blog.csdn.net/xh870189248/article/details/82692224
 
 > https://github.com/alibaba/AliOS-Things/wiki/AliOS-Things-API-YLOOP-Guide
 
+（V3.1.0）
+> https://help.aliyun.com/document_detail/161023.html?spm=a2c4g.11186623.6.542.7d6837e2syZfcU 
+
 ## alios-与智能生活平台（飞燕）使用文档 ##
 
 > https://living.aliyun.com/doc?spm=a2c9o.12549863.0.0.4e9d7946zwCcCi#index.html
