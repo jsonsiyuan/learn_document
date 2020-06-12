@@ -61,18 +61,35 @@ are recognized.
 ### Scenes ###
 
 ### Provisioning ###
-The provisioning data includes a network key, the current IV Index, and the unicast address for each element.
-The device key is derived from the ECDHSecret and ProvisioningSalt.
-![avatar](./pic/25.png)
+
+After the provisioning bearer is established, the Provisioner establishes a shared secret with the device using an Elliptic Curve Diffie-Hellman (ECDH) protocol. It then authenticates the device using OOB information that is specific to that device. Such OOB information may include a public key of the device, a long secret, the requirement to input a value into the device, or the requirement to output a value on that device. Such OOB information also enables the authentication of that device. Once the device has been authenticated, the provisioning data is transmitted to the device encrypted with a key derived from that shared secret. The device key is derived from the ECDHSecret and ProvisioningSalt.
+
+
 ![avatar](./pic/26.png)
+
 The provisioning process progresses through five steps and these are described next.
 
-Step 1. Beaconing
-Step 2. Invitation
-Step 3. Exchanging Public Keys
-Step 4. Authentication
-Step 5. Distribution of the Provisioning Data
-P240
+- Step 1. Beaconing
+- Step 2. Invitation
+- Step 3. Exchanging Public Keys
+- Step 4. Authentication
+- Step 5. Distribution of the Provisioning Data
+
+#### Provisioning protocol ####
+p237
+
+#### Provisioning capabilities ####
+- Number of Elements
+- Algorithms
+- Public Key Type
+- Static OOB Type
+- Output OOB Size
+- Output OOB Action
+- Input OOB Size
+- Input OOB Action
+
+
+
 ### Features ###
 There are four such optional features: the Relay, Proxy,
 Friend, and the Low Power features。
