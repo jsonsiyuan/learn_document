@@ -197,6 +197,7 @@ p133
 	https://developer.aliyun.com/group/genieaiot?spm=a2c6h.12873639.0.d1002.d0684e15whpN8G#/?_k=utioir
 
 	https://www.aligenie.com/doc/357554/gtgprq
+	https://www.aligenie.com/doc/357554/xxgg3d
 ![avatar](./pic/27.png)
 
 ## GATT广播和mesh广播 ##
