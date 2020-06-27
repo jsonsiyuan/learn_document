@@ -1,5 +1,5 @@
 # mqtt关键内容 #
-![avatar](mqtt相关参数demo.png)
+![avatar](mqttdemo.png)
 ## 控制报文格式 ##
 ### MQTT控制报文的结构 ###
 | :---: |
