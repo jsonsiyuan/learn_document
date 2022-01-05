@@ -1,0 +1,40 @@
+密码学主要是6种工具
+1.单向散列函数（消息摘要）      MD5，SHA1，SHA256
+2.对称加密算法                  AES128，AES192，AES256
+3.消息认证码算法                HMAC，GCM
+4.公钥密码算法					密钥协商算法DH,ECDH,ECDHE。
+5.数字签名算法                  RSA签名，椭圆曲线数字签名ECDSA
+6.伪随机数生成器
+
+安全框架定义了密码技术工具的组合方式和使用顺序。安全框架有TLS,DTLS,（X.509）.具体实现框架的软件包有oopenssl，wolfssl，mbedtls.
+
+mbedtls 简介：
+主要实现了下面三个
+1. 密码学工具箱实现
+2. x.509证书处理实现
+3. TLS/DTLS协议实现
+
+###############################################
+一个密钥握手的流程
+服务器控制台的log
+SSL initialization
+SSL initialization
+sslv3/tls read client hello
+sslv3/tls write server hello
+sslv3/tls write certificate
+sslv3/tls write key exchange
+sslv3/tls write server done
+sslv3/tls write server done
+sslv3/tls read client key change
+sslv3/tls read change cipher spec
+sslv3/tls read finished
+sslv3/tls write session ticket
+sslv3/tls write change cipher spec
+sslv3/tls write finished
+##############################################
+目录结构：
+configs   产考配置目录
+include   相关头文件，包含默认配置文件config.hello
+library   核心code，ase.c entropy,sha256,rsa.c,ecdsa.c,ssl_cli.c,ssl_src.c,X509.C
+programs  辅助工具。eec-hrap.c 可以测量不同曲线参数内存的使用情况
+tests     mbedtls 测试用例 模块的使用技巧
