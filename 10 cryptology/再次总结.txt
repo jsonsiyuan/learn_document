@@ -1,10 +1,10 @@
 密码学主要是6种工具
 1.单向散列函数（消息摘要）      MD5，SHA1，SHA256
 2.对称加密算法                  AES128，AES192，AES256
-3.消息认证码算法                单向散列函数是实现消息认真码的常见方法，该类方法同称为HMAC，有HMAC-SHA1，HMAC-SHA256.分组加密也可以构造消息认证码算法，列如CMAC,GCM,CCM.消息认证还要确定发送人是不是那个人。GCM,CCM比较好一点
-4.公钥密码算法					密钥协商算法DH,ECDH,ECDHE。
-5.数字签名算法                  RSA签名，椭圆曲线数字签名ECDSA
-6.伪随机数生成器
+3.消息认证码算法                单向散列实现HMAC-SHA1，HMAC-SHA256.分组密钥实现CBC-MAC,CMAC.认证加密算法 GCM,CCM.这类应用更加广阔。认证码算法有两个功能：1.校验消息，确认发送者。
+4.公钥密码算法					RSA是一种公钥密码算法。可以用于公钥加密，也可以用于数字签名。DH密钥协商解决密钥配送。ECDH:基于椭圆曲线密钥系统ECC，效果好，密钥等级高。secp256r1,secp384r1
+5.数字签名算法                  数字签名RSA,DSA,和ECDSA
+6.伪随机数生成器                生成盐，生成密钥，生成一次性整数Nonce，初始化向量。确定性生成器叫DRBG，Hash-DRBG,HMAC_DRBG,CTR_DRBG.
 
 安全框架定义了密码技术工具的组合方式和使用顺序。安全框架有TLS,DTLS,（X.509）.具体实现框架的软件包有oopenssl，wolfssl，mbedtls.
 
@@ -38,3 +38,16 @@ include   相关头文件，包含默认配置文件config.hello
 library   核心code，ase.c entropy,sha256,rsa.c,ecdsa.c,ssl_cli.c,ssl_src.c,X509.C
 programs  辅助工具。eec-hrap.c 可以测量不同曲线参数内存的使用情况
 tests     mbedtls 测试用例 模块的使用技巧
+
+RSA note:
+RSA 使用CRT进行加速。还有填充：OAEP 引入到了单向散列函数
+
+################
+ECDH特刊：
+mbedtls 椭圆曲线相关实现
+ecp.c/ecp.h     椭圆曲线基础操作
+ecp_curves.c    曲线定义
+ecdh.c/ecdh.h   椭圆曲线密钥协议
+ecdsa.c/ecdsa.h 椭圆曲线数字签名
+
+
