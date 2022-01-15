@@ -42,9 +42,12 @@ sslv3/tls write change cipher spec
 sslv3/tls write finished
 ##############################################
 #DTLS#
-主要用UDP来传输数据。需要解决报文乱序和报文丢包。
+主要用UDP来传输数据。需要解决报文乱序和报文丢包。和TLS也差不了多少
 
-
+#PSK密钥交换#
+密钥交换方法。pre-shared key
+PSK identity 和PSK与用户名和登入口令的概念很接近。PSK identity相当于用户名，PSK 相当于登入口令。
+服务器和客户端通过PSK 拿到预备主密钥
 
 
 
